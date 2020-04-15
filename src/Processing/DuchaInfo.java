@@ -1,28 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package procesamientos;
 
+package Processing;
 
-
-public class Ducha {
-    
+public class DuchaInfo {    
     private String Fecha;
     private double Gasto;
     private double Tiempo;
     private int Costo;
 
-    public Ducha(String Fecha, double Gasto, double Tiempo) {
+    public DuchaInfo(String Fecha, double Gasto, double Tiempo) {
         this.Fecha = Fecha;
         this.Gasto = Gasto;
         this.Tiempo = Tiempo;
     }
 
-    
-    
-    
     public String getFecha() {
         return Fecha;
     }
@@ -53,10 +43,5 @@ public class Ducha {
     
     public void setCosto(int Costo) {
         this.Costo = Costo;
-    }
-    
-    
-    
-    
-    
+    } 
 }

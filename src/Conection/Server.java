@@ -1,8 +1,7 @@
 
-package procesamientos;
+package Conection;
 
-
-
+import Processing.DuchaInfo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,13 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-public class Procesamientos {
-
-    public static void main(String[] args)  {
-        ArrayList<Ducha> info = recibirParametros();  
-
-    }
+public class Server {
     
     public static String leerPaginaWeb() {
         String code = "";
@@ -31,10 +24,8 @@ public class Procesamientos {
             BufferedReader read = new BufferedReader(new InputStreamReader(in));
 
             String line;
-            int i = 0;
             while ((line = read.readLine()) != null) {
                 codeBuffered.append(line).append("\n");
-
             }
 
             code = codeBuffered.toString(); // Este es el código de la página
@@ -48,39 +39,22 @@ public class Procesamientos {
         return code;
     }
 
-    
-     public static ArrayList<Ducha> recibirParametros() {
-         ArrayList<Ducha> info = new ArrayList<Ducha>();
-         
-         
-         try {
+    public static ArrayList<DuchaInfo> recibirParametros() {
+        ArrayList<DuchaInfo> info = new ArrayList<DuchaInfo>();
+        try {
             JSONObject obj = new JSONObject(leerPaginaWeb());
-            JSONArray arr = obj.getJSONArray("feeds");
-            int tamano=arr.length();
-            
+            JSONArray arr = obj.getJSONArray("feeds");            
             
             for (int i = 0; i < arr.length(); i++) {
-                String fecha = arr.getJSONObject(i).getString("created_at");
+                String fecha = arr.getJSONObject(i).getString("created_at").substring(0,10);
                 double gasto = arr.getJSONObject(i).getDouble("field1");
                 double tiempo = arr.getJSONObject(i).getDouble("field2");
                 
-                System.out.println(fecha+" "+gasto+" "+tiempo);
-                info.add(new Ducha(fecha, gasto, tiempo));
-                
+                info.add(new DuchaInfo(fecha, gasto, tiempo));
             }
-            
          } catch (JSONException e) {
-             System.out.println("No pude leer la página web.");
+             System.out.println("No pude acceder a esta informacion");
          }
-        
             return info;
-    }
-     
-    
-     
-     
-   
-    
-    
-    
+    }    
 }
