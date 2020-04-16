@@ -1,20 +1,20 @@
 
-import static Conection.Server.*;
 import static Additionals.Colors.*;
+import Conection.Server;
 import Processing.DuchaInfo;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class Main {
-    private static Scanner read = new Scanner(System.in);
     
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
+        Server.recibirParametros();
         Menu();
     }
     
     public static void Menu(){
+        Scanner read = new Scanner(System.in);
         System.out.print(GREEN+"          ____         ____       ____ \n"+
                          GREEN+"         / ___|       / ___|     |  _ \\ \n "+
                          GREEN+"        \\___ \\      | |         | | | |\n"+
@@ -22,7 +22,8 @@ public class Main {
                          GREEN+"         |____/  (_)  \\____| (_) |____/\n"+
                          CYAN+"|***********************************************|\n"+
                          CYAN+"| "+GREEN+"0) "+RESET+"Finalizar programa                         "+CYAN+"|\n"+
-                         CYAN+"| "+GREEN+"1) "+RESET+"Mostrar todos los datos                    "+CYAN+"|\n"+
+                         CYAN+"| "+GREEN+"1) "+RESET+"Asignar estrato                            "+CYAN+"|\n"+
+                         CYAN+"| "+GREEN+"2) "+RESET+"Mostrar todos los datos                    "+CYAN+"|\n"+
                          CYAN+"|***********************************************"+CYAN+"|\n"+
                          GREEN+" *.*"+RESET+" Ingresa la opcion a realizar: "+RESET);
         try {
@@ -34,7 +35,13 @@ public class Main {
                     System.exit(0);
                     break;
                 case 1:
+                    UpdateEstrato();
+                    break;
+                case 2:
                     ShowInfo();
+                    if (DuchaInfo.Estrato<=0 || DuchaInfo.Estrato>6) {
+                        System.out.println(RED+"Costo no calculado, actualice su estrato");
+                    }
                     break;
                 default:
                     System.out.println(RED+"ERROR, opcion invalida");
@@ -48,13 +55,14 @@ public class Main {
     }
     
     public static void Menu2(){
+        Scanner read = new Scanner(System.in);
         System.out.print(GREEN+"*.*"+RESET+" Ingrese 1 para continuar 0 para finalizar: ");
         try {
             int answer2 = read.nextInt();
             System.out.println("\n");
             switch (answer2){
                 case 0:
-                    System.out.println(CYAN+"Programa finalizado");
+                    System.out.println(GREEN+"Programa finalizado");
                     System.exit(0);
                     break;
                 case 1:
@@ -70,20 +78,36 @@ public class Main {
         Menu2();
     }
     public static void ShowInfo(){
-        ArrayList<DuchaInfo> info = recibirParametros();
         String format1 = "%-10s";
         String format2 = "%-9s";
-        String format3 = "%-9s";
-        String formatInfo = CYAN+"| "+RESET+format1+CYAN+" | "+RESET+format2+CYAN+" | "+RESET+format3+CYAN+" |\n";
-        System.out.println(CYAN+"______________________________________\n"+
-                           CYAN+"|"+GREEN+"   Fecha    "+CYAN+"|"+GREEN+" Gasto(L)  "+CYAN+"|"+GREEN+" Tiempo(m) "+CYAN+"|\n"+
-                           CYAN+"|____________|___________|___________|");
-        for (int i = 0; i < info.size(); i++) {
-            String fecha = info.get(i).getFecha();
-            String Gasto = Double.toString(info.get(i).getGasto())+"L";
-            String Tiempo = Double.toString(info.get(i).getTiempo())+"m";
-            System.out.format(formatInfo, fecha,Gasto,Tiempo);
+        String format3 = "%-7s";
+        String formatInfo = CYAN+"| "+RESET+format1+CYAN+" | "+RESET+format2+CYAN+" | "+RESET+format2+CYAN+
+                                " | "+RESET+format3+CYAN+" |\n";
+        System.out.println(CYAN+"________________________________________________\n"+
+                           CYAN+"|"+GREEN+"   Fecha    "+CYAN+"|"+GREEN+" Gasto(L)  "+CYAN+"|"+GREEN+" Tiempo(m) "+
+                           CYAN+"|"+GREEN+"  Costo  "+CYAN+"|\n"+
+                           CYAN+"|____________|___________|___________|_________|");
+        for (int i = 0; i < DuchaInfo.duchas.size(); i++) {
+            String fecha = DuchaInfo.duchas.get(i).getFecha();
+            String Gasto = Double.toString(DuchaInfo.duchas.get(i).getGasto())+"L";
+            String Tiempo = Double.toString(DuchaInfo.duchas.get(i).getTiempo())+"m";
+            String costo = Double.toString(DuchaInfo.duchas.get(i).getCosto())+"$";
+            System.out.format(formatInfo, fecha,Gasto,Tiempo,costo);
         }
-        System.out.println(CYAN+"|____________|___________|___________|"+RESET);
+        System.out.println(CYAN+"|____________|___________|___________|_________|"+RESET);
+    }
+    
+    public static void UpdateEstrato(){
+        Scanner read = new Scanner(System.in);
+        System.out.print(GREEN+" *.*"+RESET+" Ingrese su estrato: "+RESET);
+        try {
+            DuchaInfo.Estrato = read.nextInt();
+            for (int i = 0; i < DuchaInfo.duchas.size(); i++) {
+                DuchaInfo.duchas.get(i).CalcCost();
+            }
+        } catch (InputMismatchException e) {
+            System.out.println(RED+"ERROR, el estrato tiene que estar entre el rango 1-6");
+            UpdateEstrato();
+        }
     }
 }

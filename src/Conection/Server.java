@@ -2,6 +2,7 @@
 package Conection;
 
 import Processing.DuchaInfo;
+import static Processing.DuchaInfo.duchas;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,8 +40,7 @@ public class Server {
         return code;
     }
 
-    public static ArrayList<DuchaInfo> recibirParametros() {
-        ArrayList<DuchaInfo> info = new ArrayList<DuchaInfo>();
+    public static void recibirParametros() {
         try {
             JSONObject obj = new JSONObject(leerPaginaWeb());
             JSONArray arr = obj.getJSONArray("feeds");            
@@ -50,11 +50,10 @@ public class Server {
                 double gasto = arr.getJSONObject(i).getDouble("field1");
                 double tiempo = arr.getJSONObject(i).getDouble("field2");
                 
-                info.add(new DuchaInfo(fecha, gasto, tiempo));
+                duchas.add(new DuchaInfo(fecha, gasto, tiempo));
             }
          } catch (JSONException e) {
              System.out.println("No pude acceder a esta informacion");
          }
-            return info;
     }    
 }
