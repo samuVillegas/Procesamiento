@@ -1,6 +1,7 @@
 
 import static Additionals.Colors.*;
 import Conection.Server;
+import Processing.Averages;
 import Processing.DuchaInfo;
 import Processing.Persistencia;
 import java.util.InputMismatchException;
@@ -27,6 +28,7 @@ public class Main {
                          CYAN+"| "+GREEN+"1) "+RESET+"Asignar estrato                            "+CYAN+"|\n"+
                          CYAN+"| "+GREEN+"2) "+RESET+"Mostrar todos los datos                    "+CYAN+"|\n"+
                          CYAN+"| "+GREEN+"3) "+RESET+"Cargar persistencia                        "+CYAN+"|\n"+
+                         CYAN+"| "+GREEN+"4) "+RESET+"Promedios generales                        "+CYAN+"|\n"+
                          CYAN+"|***********************************************"+CYAN+"|\n"+
                          GREEN+" *.*"+RESET+" Ingresa la opcion a realizar: "+RESET);
         try {
@@ -48,6 +50,9 @@ public class Main {
                     break;
                 case 3:
                     Persistencia.LoadFile();
+                    break;
+                case 4:
+                    Averages.GeneralAverage();
                     break;
                 default:
                     System.out.println(RED+"ERROR, opcion invalida");

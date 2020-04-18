@@ -42,7 +42,7 @@ public class Persistencia {
             for (int i = lenght; i < DuchaInfo.duchas.size(); i++) {
                 bw.append(DuchaInfo.duchas.get(i).getFecha()+" "+
                          DuchaInfo.duchas.get(i).getGasto()+" "+
-                         DuchaInfo.duchas.get(i).getTiempo()+"\n");
+                         DuchaInfo.duchas.get(i).getTiempo()+"\r\n");
             }
             bw.close();
         } catch (Exception e) {
