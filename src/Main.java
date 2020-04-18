@@ -2,6 +2,7 @@
 import static Additionals.Colors.*;
 import Conection.Server;
 import Processing.DuchaInfo;
+import Processing.Persistencia;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ public class Main {
     
     public static void main(String[] args) {
         Server.recibirParametros();
+        Persistencia.WriteFile();
         Menu();
     }
     
@@ -24,6 +26,7 @@ public class Main {
                          CYAN+"| "+GREEN+"0) "+RESET+"Finalizar programa                         "+CYAN+"|\n"+
                          CYAN+"| "+GREEN+"1) "+RESET+"Asignar estrato                            "+CYAN+"|\n"+
                          CYAN+"| "+GREEN+"2) "+RESET+"Mostrar todos los datos                    "+CYAN+"|\n"+
+                         CYAN+"| "+GREEN+"3) "+RESET+"Cargar persistencia                        "+CYAN+"|\n"+
                          CYAN+"|***********************************************"+CYAN+"|\n"+
                          GREEN+" *.*"+RESET+" Ingresa la opcion a realizar: "+RESET);
         try {
@@ -42,6 +45,9 @@ public class Main {
                     if (DuchaInfo.Estrato<=0 || DuchaInfo.Estrato>6) {
                         System.out.println(RED+"Costo no calculado, actualice su estrato");
                     }
+                    break;
+                case 3:
+                    Persistencia.LoadFile();
                     break;
                 default:
                     System.out.println(RED+"ERROR, opcion invalida");

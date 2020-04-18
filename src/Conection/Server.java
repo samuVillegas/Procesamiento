@@ -1,14 +1,15 @@
 
 package Conection;
 
-import Processing.DuchaInfo;
 import static Processing.DuchaInfo.duchas;
+import static Additionals.Colors.*;
+import Processing.DuchaInfo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
+import java.net.UnknownHostException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,8 +35,10 @@ public class Server {
             //cerramos los streams
             in.close();
             read.close();
+        } catch (UnknownHostException e) {
+            System.out.println(RED+"ERROR, no me pude conectar al servidor");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(RED+"ERROR, no me pude conectar al servidor");
         }
         return code;
     }
@@ -53,7 +56,7 @@ public class Server {
                 duchas.add(new DuchaInfo(fecha, gasto, tiempo));
             }
          } catch (JSONException e) {
-             System.out.println("No pude acceder a esta informacion");
+             System.out.println(RED+"ERROR, No pude acceder a toda la informacion");
          }
     }    
 }
