@@ -1,24 +1,33 @@
 
 package Processing;
 
-import static Additionals.Colors.*;
+import Additionals.Texto;
 import static Processing.DuchaInfo.duchas;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import javax.swing.JOptionPane;
 
 public class Persistencia {
     
     public static String setUrl(){
         String system = System.getProperty("os.name");
+        
         String user = System.getProperty("user.name");
+        String language = System.getProperties().getProperty("user.language");
         String url = "";
+        
         if (system.startsWith("Linux")) {
-                url = "/home/"+user+"/Documents/Persistencia.txt";
+            if(language.equals("es")){
+                url = "/home/"+user+"/Documentos/Persistencia.txt";           
+            }else{
+                url = "/home/"+user+"/Documents/Persistencia.txt";  
+            }
+                    
         }else if (system.startsWith("Windows")){
-            url = "/Users/"+user+"/Documents/Persistencia.txt";
+            url = "C:/Users/"+user+"/Documents/Persistencia.txt";   
         }
         return url;
     }
@@ -46,8 +55,8 @@ public class Persistencia {
             }
             bw.close();
         } catch (Exception e) {
-            System.out.println(RED+"ERROR, persistencia no pudo ser generada");
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null,Texto.AV6);
+           // System.out.println(e);
         }
     }
     
@@ -65,9 +74,10 @@ public class Persistencia {
                 
                 duchas.add(new DuchaInfo(fecha, gasto, tiempo));
             }
-            System.out.println(GREEN+"Persistencia cargada con exito");
+            JOptionPane.showMessageDialog(null,Texto.AV2);
+            
         } catch (Exception e) {
-            System.out.println(RED+"ERROR, persistencia no pudo ser cargada");
+            JOptionPane.showMessageDialog(null,Texto.AV6);
         }
     }
 }

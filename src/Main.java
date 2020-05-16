@@ -1,5 +1,5 @@
 
-import static Additionals.Colors.*;
+/*import static Additionals.Colors.*;
 import Conection.Server;
 import Processing.Averages;
 import Processing.DuchaInfo;
@@ -122,3 +122,4 @@ public class Main {
         }
     }
 }
+*/
