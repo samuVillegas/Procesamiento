@@ -1,5 +1,6 @@
 
 import Additionals.Texto;
+import Conection.DataBase;
 import Conection.Server;
 import Processing.DuchaInfo;
 import Processing.Persistencia;
@@ -128,6 +129,7 @@ public class Menu extends JFrame implements ActionListener {
         Server.recibirParametros();
         Persistencia.WriteFile();
         Texto.language();
+        DataBase.conexion();
         Menu m1 = new Menu();
     }
 
