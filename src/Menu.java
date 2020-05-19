@@ -21,10 +21,10 @@ public class Menu extends JFrame implements ActionListener {
 
     public Menu() {
         DatosVentana();
+        Botones();
     }
 
     public void DatosVentana() {
-
         this.setTitle(Texto.WINDOW_TITLE);
         this.setSize(500, 500);
         this.setLocationRelativeTo(null);
@@ -35,47 +35,55 @@ public class Menu extends JFrame implements ActionListener {
         panel.setLayout(null);
         panel.setBackground(new Color(52,152,219));
         this.getContentPane().add(panel);      
-        Botones();
-
     }
 
     public void Botones() {
-        
+        buttonPanel = new JPanel();
+        assignStratum = new JButton(Texto.BTN1);
+        showData = new JButton(Texto.BTN2);
+        loadPersistence = new JButton(Texto.BTN3);
+        averages = new JButton(Texto.BTN9);
+        enterPage = new JButton(Texto.BTN4);
+        Exit = new JButton(Texto.BTN5);
+        stratum = new JComboBox();
+        saveStratum = new JButton(Texto.BTN6);
+        update = new JButton(Texto.BTN7);
+        outTable = new JButton(Texto.BTN8);
         logo = new JLabel("logo");
-        logo.setBounds(225, 30, 50, 50);
+        logo.setBounds(175, 20, 150, 50);
         
-        ImageIcon im1 = new ImageIcon(getClass().getResource("/Resources/edificios.png"));
+        ImageIcon im1 = new ImageIcon(getClass().getResource("/Resources/logo.png"));
         ImageIcon im2 = new ImageIcon(im1.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
         logo.setIcon(im2);
         panel.add(logo);
         
-        buttonPanel = new JPanel();
+        
         buttonPanel.setBounds(163, 100, 174, 300);
         buttonPanel.setBackground(new Color(52,152,219));
         panel.add(buttonPanel);
         buttonPanel.setLayout(null);
         
-        assignStratum = new JButton(Texto.BTN1);
+        
         assignStratum.setBounds(0, 0, 174, 25);
         assignStratum.addActionListener(this);
         
-        showData = new JButton(Texto.BTN2);
+        
         showData.setBounds(0, 50, 174, 25);
         showData.addActionListener(this);
         
-        loadPersistence = new JButton(Texto.BTN3);
+        
         loadPersistence.setBounds(0, 100, 174, 25);
         loadPersistence.addActionListener(this);
 
-        averages = new JButton(Texto.BTN9);
+        
         averages.setBounds(0, 150, 174, 25);
         averages.addActionListener(this);
 
-        enterPage = new JButton(Texto.BTN4);
+        
         enterPage.setBounds(0, 200, 174, 25);
         enterPage.addActionListener(this);
 
-        Exit = new JButton(Texto.BTN5);
+        
         Exit.setBounds(0, 250, 174, 25);
         Exit.addActionListener(this);
 
@@ -85,8 +93,10 @@ public class Menu extends JFrame implements ActionListener {
         buttonPanel.add(enterPage);
         buttonPanel.add(averages);
         buttonPanel.add(Exit);
+        buttonPanel.updateUI();
+        panel.updateUI();
         
-        stratum = new JComboBox();
+        
         stratum.setBounds(350, 100, 50, 25);
         for (int i = 1; i <= 6; i++) {
             stratum.addItem(i);
@@ -94,22 +104,22 @@ public class Menu extends JFrame implements ActionListener {
         panel.add(stratum);
         stratum.setVisible(false);
         
-        saveStratum = new JButton(Texto.BTN6);
+        
         saveStratum.setBounds(330, 150, 100, 25);
-        saveStratum.setVisible(false);
         saveStratum.addActionListener(this);
+        saveStratum.setVisible(false);
         panel.add(saveStratum);
 
       
-        update = new JButton(Texto.BTN7);
-        update.setBounds(163, 330, 174, 25);
-        update.setVisible(false);
-        update.addActionListener(this);
         
-        outTable = new JButton(Texto.BTN8);
+        update.setBounds(163, 330, 174, 25);
+        update.addActionListener(this);
+        update.setVisible(false);
+        
+        
         outTable.setBounds(163, 370, 174, 25);
-        outTable.setVisible(false);
         outTable.addActionListener(this);
+        outTable.setVisible(false);
         
         
     }
@@ -136,7 +146,7 @@ public class Menu extends JFrame implements ActionListener {
             buttonPanel.setLocation(163, 100);
 
             if (DuchaInfo.Estrato <= 0 || DuchaInfo.Estrato > 6) {
-                JOptionPane.showMessageDialog(null, Texto.AV1);
+                JOptionPane.showMessageDialog(this, Texto.AV1, Texto.BTN2,JOptionPane.INFORMATION_MESSAGE);
             } else {                
                 DuchaInfo.duchas.clear();
                 Server.recibirParametros();
@@ -220,7 +230,7 @@ public class Menu extends JFrame implements ActionListener {
 
         JScrollPane scroll = new JScrollPane(t);
         scroll.setBackground(new Color(52,152,219));
-        scroll.setBounds(0, 0, 500, 300);
+        scroll.setBounds(10, 20, 480, 300);
         panel.add(scroll);
         Botones2();
         
@@ -241,10 +251,12 @@ public class Menu extends JFrame implements ActionListener {
             average[1] /= lenght;
             average[2] /= lenght;
 
-            JOptionPane.showMessageDialog(null, Texto.DATE2+"(L): " + format1.format(average[0]) +" "+ Texto.DATE3+"(m): " + format1.format(average[1]) + " "+ Texto.DATE3+": " + format1.format(average[2]));
+            JOptionPane.showMessageDialog(this, Texto.DATE2+"(L): " + format1.format(average[0]) +
+                    "\n"+ Texto.DATE3+"(m): " + format1.format(average[1]) +
+                    "\n"+ Texto.DATE4+": " + format1.format(average[2]),Texto.BTN9,JOptionPane.INFORMATION_MESSAGE);
 
         } else {
-            JOptionPane.showMessageDialog(null, Texto.AV3);
+            JOptionPane.showMessageDialog(this, Texto.AV3,Texto.BTN9,JOptionPane.INFORMATION_MESSAGE);
         }
     }
     

@@ -51,7 +51,7 @@ public class Server {
             JSONArray arr = obj.getJSONArray("feeds");            
             
             for (int i = 0; i < arr.length(); i++) {
-                String fecha = arr.getJSONObject(i).getString("created_at").substring(0,10);
+                String fecha = arr.getJSONObject(i).getString("created_at").replace("T", " ").substring(0,16);
                 double gasto = arr.getJSONObject(i).getDouble("field1");
                 double tiempo = arr.getJSONObject(i).getDouble("field2");
                 

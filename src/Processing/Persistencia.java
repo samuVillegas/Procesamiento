@@ -68,9 +68,9 @@ public class Persistencia {
             String l;
             while ((l = bf.readLine())!=null) {
                 String line[] = l.split(" ");
-                String fecha = line[0];
-                double gasto = Double.parseDouble(line[1]);
-                double tiempo = Double.parseDouble(line[2]);
+                String fecha = line[0]+" "+line[1];
+                double gasto = Double.parseDouble(line[2]);
+                double tiempo = Double.parseDouble(line[3]);
                 
                 duchas.add(new DuchaInfo(fecha, gasto, tiempo));
             }
