@@ -1,9 +1,8 @@
 
 package Conection;
 
+import Processing.DuchaInfo;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DataBase {
     
@@ -22,14 +21,25 @@ public class DataBase {
         return conect; 
     }
     
-    public static boolean Exist(){
+    public static boolean Exist(String fecha){
         try {
-            PreparedStatement statement = conect.prepareStatement("SELECT * FROM Datos_ducha");
+            PreparedStatement statement = conect.prepareStatement("SELECT * FROM Datos_ducha WHERE Fecha='"+fecha+"'");
             ResultSet res = statement.executeQuery();
             return !res.next();
         } catch (SQLException ex) {
             System.out.println("Error, no se pudo verificar toda la informacion");
         }
-        return false;
+        return true;
+    }
+    
+    public static void Insert(DuchaInfo ducha){
+        try {
+            PreparedStatement statement = conect.prepareStatement(
+            "INSERT INTO Datos_ducha(Fecha, Gasto, Tiempo, Costo) VALUES ('"+ducha.getFecha()+
+                    "',"+ducha.getGasto()+","+ducha.getTiempo()+","+ducha.getCosto()+")");
+            statement.execute();
+        } catch (SQLException e) {
+            System.out.println("Error en insert"+e);
+        }
     }
 }

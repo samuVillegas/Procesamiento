@@ -126,11 +126,11 @@ public class Menu extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
+        Texto.language();
+        Menu m1 = new Menu();
         Server.recibirParametros();
         Persistencia.WriteFile();
-        Texto.language();
         DataBase.conexion();
-        Menu m1 = new Menu();
     }
 
     @Override
@@ -149,12 +149,14 @@ public class Menu extends JFrame implements ActionListener {
 
             if (DuchaInfo.Estrato <= 0 || DuchaInfo.Estrato > 6) {
                 JOptionPane.showMessageDialog(this, Texto.AV1, Texto.BTN2,JOptionPane.INFORMATION_MESSAGE);
-            } else {                
-                DuchaInfo.duchas.clear();
-                Server.recibirParametros();
+            } else {
                 MostrarTabla();
+                for (int i = 0; i < DuchaInfo.duchas.size(); i++) {
+                    if (DataBase.Exist(DuchaInfo.duchas.get(i).getFecha())) {
+                        DataBase.Insert(DuchaInfo.duchas.get(i));
+                    }
+                }
             }
-
         } else if (e.getSource() == loadPersistence) {           
             Persistencia.LoadFile();
         } else if (e.getSource() == averages) {
@@ -180,6 +182,7 @@ public class Menu extends JFrame implements ActionListener {
         } else if (e.getSource() == update) {
             DuchaInfo.duchas.clear();
             Server.recibirParametros();
+            Persistencia.WriteFile();
             MostrarTabla();
             
         } else if (e.getSource() == outTable) {

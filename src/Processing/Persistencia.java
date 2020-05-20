@@ -2,7 +2,6 @@
 package Processing;
 
 import Additionals.Texto;
-import static Processing.DuchaInfo.duchas;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -61,6 +60,7 @@ public class Persistencia {
     }
     
     public static void LoadFile(){
+        DuchaInfo.duchas.clear();
         File file = new File(setUrl());
         try {
             FileReader reader = new FileReader(file);
@@ -72,7 +72,7 @@ public class Persistencia {
                 double gasto = Double.parseDouble(line[2]);
                 double tiempo = Double.parseDouble(line[3]);
                 
-                duchas.add(new DuchaInfo(fecha, gasto, tiempo));
+                DuchaInfo.duchas.add(new DuchaInfo(fecha, gasto, tiempo));
             }
             JOptionPane.showMessageDialog(null,Texto.AV2);
             
