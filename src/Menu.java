@@ -59,7 +59,7 @@ public class Menu extends JFrame implements ActionListener {
         panel.add(logo);
         
         
-        buttonPanel.setBounds(163, 100, 174, 300);
+        buttonPanel.setBounds(163, 100, 174, 350);
         buttonPanel.setBackground(new Color(52,152,219));
         panel.add(buttonPanel);
         buttonPanel.setLayout(null);
@@ -84,7 +84,6 @@ public class Menu extends JFrame implements ActionListener {
         enterPage.setBounds(0, 200, 174, 25);
         enterPage.addActionListener(this);
 
-        
         Exit.setBounds(0, 250, 174, 25);
         Exit.addActionListener(this);
 
@@ -151,11 +150,7 @@ public class Menu extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, Texto.AV1, Texto.BTN2,JOptionPane.INFORMATION_MESSAGE);
             } else {
                 MostrarTabla();
-                for (int i = 0; i < DuchaInfo.duchas.size(); i++) {
-                    if (DataBase.Exist(DuchaInfo.duchas.get(i).getFecha())) {
-                        DataBase.Insert(DuchaInfo.duchas.get(i));
-                    }
-                }
+                DataBase.Insert();
             }
         } else if (e.getSource() == loadPersistence) {           
             Persistencia.LoadFile();
@@ -164,7 +159,6 @@ public class Menu extends JFrame implements ActionListener {
         } else if (e.getSource() == enterPage) {
             
             //Conexión con la página
-            
         } else if (e.getSource() == Exit) {
             System.exit(0);
 
@@ -182,8 +176,9 @@ public class Menu extends JFrame implements ActionListener {
         } else if (e.getSource() == update) {
             DuchaInfo.duchas.clear();
             Server.recibirParametros();
-            Persistencia.WriteFile();
             MostrarTabla();
+            Persistencia.WriteFile();
+            DataBase.Insert();
             
         } else if (e.getSource() == outTable) {
             panel.removeAll();
@@ -193,7 +188,7 @@ public class Menu extends JFrame implements ActionListener {
         }
 
     }
-
+    
     public void MostrarTabla() {
 
         DefaultTableModel modelo = new DefaultTableModel();

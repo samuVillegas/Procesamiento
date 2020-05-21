@@ -1,8 +1,10 @@
 
 package Conection;
 
+import Additionals.Texto;
 import Processing.DuchaInfo;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class DataBase {
     
@@ -22,24 +24,37 @@ public class DataBase {
     }
     
     public static boolean Exist(String fecha){
+        boolean error = false;
         try {
             PreparedStatement statement = conect.prepareStatement("SELECT * FROM Datos_ducha WHERE Fecha='"+fecha+"'");
             ResultSet res = statement.executeQuery();
             return !res.next();
         } catch (SQLException ex) {
-            System.out.println("Error, no se pudo verificar toda la informacion");
+            error = true;
+        }
+        if (error) {
+            JOptionPane.showMessageDialog(null, Texto.AV8);
         }
         return true;
     }
     
-    public static void Insert(DuchaInfo ducha){
-        try {
-            PreparedStatement statement = conect.prepareStatement(
-            "INSERT INTO Datos_ducha(Fecha, Gasto, Tiempo, Costo) VALUES ('"+ducha.getFecha()+
-                    "',"+ducha.getGasto()+","+ducha.getTiempo()+","+ducha.getCosto()+")");
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("Error en insert"+e);
+    public static void Insert(){
+        boolean error = false;
+        for (int i = 0; i < DuchaInfo.duchas.size(); i++) {
+            if (DataBase.Exist(DuchaInfo.duchas.get(i).getFecha())) {
+                try {
+                    PreparedStatement statement = conect.prepareStatement(
+                    "INSERT INTO Datos_ducha(Fecha, Gasto, Tiempo, Costo) VALUES ('"+DuchaInfo.duchas.get(i).getFecha()+
+                            "',"+DuchaInfo.duchas.get(i).getGasto()+","+DuchaInfo.duchas.get(i).getTiempo()+
+                            ","+DuchaInfo.duchas.get(i).getCosto()+")");
+                    statement.execute();
+                } catch (SQLException e) {
+                    error = true;
+                }
+            }
+        }
+        if (error) {
+            JOptionPane.showMessageDialog(null, Texto.AV7);
         }
     }
 }
