@@ -195,7 +195,7 @@ public class Menu extends JFrame implements ActionListener {
 
         modelo.addColumn(Texto.DATE1);
         modelo.addColumn(Texto.DATE2+"(L)");
-        modelo.addColumn(Texto.DATE3+"(m)");
+        modelo.addColumn(Texto.DATE3+"(HH:MM:SS)");
         modelo.addColumn(Texto.DATE4);
 
         int h = DuchaInfo.duchas.size();
@@ -214,7 +214,7 @@ public class Menu extends JFrame implements ActionListener {
                         ;
                         break;
                     case 2:
-                        tabla[j] = Double.toString(DuchaInfo.duchas.get(i).getTiempo()) + "m";
+                        tabla[j] = DuchaInfo.duchas.get(i).getTiempoFormat();
                         break;
                     case 3:
                         tabla[j] = Double.toString(DuchaInfo.duchas.get(i).getCosto()) + "$";
@@ -250,9 +250,13 @@ public class Menu extends JFrame implements ActionListener {
             average[0] /= lenght;
             average[1] /= lenght;
             average[2] /= lenght;
-
+            
+            int tiempo = (int)average[1];
+            int ss = tiempo % 60;
+            int mm = (tiempo/60)%60;
+            
             JOptionPane.showMessageDialog(this, Texto.DATE2+"(L): " + format1.format(average[0]) +
-                    "\n"+ Texto.DATE3+"(m): " + format1.format(average[1]) +
+                    "\n"+ Texto.DATE3+"(MM:SS): " + String.format("%02d:%02d", mm,ss) +
                     "\n"+ Texto.DATE4+": " + format1.format(average[2]),Texto.BTN9,JOptionPane.INFORMATION_MESSAGE);
 
         } else {

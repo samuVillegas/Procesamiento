@@ -16,10 +16,10 @@ public class DuchaInfo {
     
     private String Fecha;
     private double Gasto;
-    private double Tiempo;
+    private int Tiempo;
     private double Costo;
     
-    public DuchaInfo(String Fecha, double Gasto, double Tiempo) {
+    public DuchaInfo(String Fecha, double Gasto, int Tiempo) {
         this.Fecha = Fecha;
         this.Gasto = Gasto;
         this.Tiempo = Tiempo;
@@ -69,7 +69,7 @@ public class DuchaInfo {
     public String getFecha() {
         return Fecha;
     }
-
+    
     public void setFecha(String Fecha) {
         this.Fecha = Fecha;
     }
@@ -81,12 +81,19 @@ public class DuchaInfo {
     public void setGasto(double Gasto) {
         this.Gasto = Gasto;
     }
-
-    public double getTiempo() {
+    
+    public String getTiempoFormat() {
+        int ss = Tiempo % 60;
+        int mm = (Tiempo/60)%60;
+        int hh = (int)(Tiempo/60)-mm;
+        return String.format("\"%02d:%02d:%02d\"", hh,mm,ss);
+    }
+    
+    public int getTiempo() {
         return Tiempo;
     }
 
-    public void setTiempo(double Tiempo) {
+    public void setTiempo(int Tiempo) {
         this.Tiempo = Tiempo;
     }
     

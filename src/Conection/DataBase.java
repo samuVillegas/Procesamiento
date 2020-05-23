@@ -45,7 +45,7 @@ public class DataBase {
                 try {
                     PreparedStatement statement = conect.prepareStatement(
                     "INSERT INTO Datos_ducha(Fecha, Gasto, Tiempo, Costo) VALUES ('"+DuchaInfo.duchas.get(i).getFecha()+
-                            "',"+DuchaInfo.duchas.get(i).getGasto()+","+DuchaInfo.duchas.get(i).getTiempo()+
+                            "',"+DuchaInfo.duchas.get(i).getGasto()+",\""+DuchaInfo.duchas.get(i).getTiempoFormat()+"\""+
                             ","+DuchaInfo.duchas.get(i).getCosto()+")");
                     statement.execute();
                 } catch (SQLException e) {

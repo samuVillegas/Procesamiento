@@ -70,7 +70,7 @@ public class Persistencia {
                 String line[] = l.split(" ");
                 String fecha = line[0]+" "+line[1];
                 double gasto = Double.parseDouble(line[2]);
-                double tiempo = Double.parseDouble(line[3]);
+                int tiempo = Integer.parseInt(line[3]);
                 
                 DuchaInfo.duchas.add(new DuchaInfo(fecha, gasto, tiempo));
             }
