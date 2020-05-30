@@ -86,7 +86,7 @@ public class DuchaInfo {
         int ss = Tiempo % 60;
         int mm = (Tiempo/60)%60;
         int hh = (int)(Tiempo/60)-mm;
-        return String.format("\"%02d:%02d:%02d\"", hh,mm,ss);
+        return String.format("%02d:%02d:%02d", hh,mm,ss);
     }
     
     public int getTiempo() {

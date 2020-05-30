@@ -53,9 +53,11 @@ public class Server {
             for (int i = 0; i < arr.length(); i++) {
                 String fecha = arr.getJSONObject(i).getString("created_at").replace("T", " ").substring(0,16);
                 double gasto = arr.getJSONObject(i).getDouble("field1");
-                int tiempo = arr.getJSONObject(i).getInt("field2");
-                if (tiempo > 10) {
-                    duchas.add(new DuchaInfo(fecha, gasto, tiempo));
+                String tiempo = arr.getJSONObject(i).getString("field2");
+                if (tiempo != "null") {
+                    if (Integer.parseInt(tiempo) > 10) {
+                        duchas.add(new DuchaInfo(fecha, gasto, Integer.parseInt(tiempo)));
+                    }
                 }
             }
          } catch (JSONException e) {

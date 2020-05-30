@@ -8,9 +8,9 @@ import javax.swing.JOptionPane;
 
 public class DataBase {
     
-    private static final String URL = "jdbc:mysql://sql10.freemysqlhosting.net:3306/sql10341885";
-    private static final String USER = "sql10341885";
-    private static final String PASS = "6RucvaXJCI";
+    private static final String URL = "jdbc:mysql://sql10.freemysqlhosting.net:3306/sql10344429";
+    private static final String USER = "sql10344429";
+    private static final String PASS = "RZuaFb2mwy";
     
     static Connection conect = null;
     public static Connection conexion() {
@@ -45,10 +45,11 @@ public class DataBase {
                 try {
                     PreparedStatement statement = conect.prepareStatement(
                     "INSERT INTO Datos_ducha(Fecha, Gasto, Tiempo, Costo) VALUES ('"+DuchaInfo.duchas.get(i).getFecha()+
-                            "',"+DuchaInfo.duchas.get(i).getGasto()+",\""+DuchaInfo.duchas.get(i).getTiempoFormat()+"\""+
-                            ","+DuchaInfo.duchas.get(i).getCosto()+")");
+                            "',"+DuchaInfo.duchas.get(i).getGasto()+",'"+DuchaInfo.duchas.get(i).getTiempoFormat()+
+                            "',"+DuchaInfo.duchas.get(i).getCosto()+")");
                     statement.execute();
                 } catch (SQLException e) {
+                    System.out.println(e);
                     error = true;
                 }
             }
